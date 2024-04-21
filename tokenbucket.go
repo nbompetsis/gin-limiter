@@ -54,6 +54,8 @@ func (r *TokenRateLimiter) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		limitInfo := r.Limit()
 		if limitInfo.RateLimited {
+			c.Header("X-Rate-Limit-Reset", limitInfo.ResetWindow.String())
+			c.Header("X-Rate-Limit-Ip", c.ClientIP())
 			c.JSON(http.StatusTooManyRequests, gin.H{
 				"message": "Too many requests, please try later in " + limitInfo.ResetWindow.String(),
 			})
