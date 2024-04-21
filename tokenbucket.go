@@ -1,4 +1,4 @@
-package limiter
+package limiter // import limiter "github.com/nbompetsis/gin-limiter"
 
 import (
 	"net/http"
